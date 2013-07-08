@@ -3,9 +3,9 @@ Express for APIs
 
 >A few tips and libraries for creating and documenting RESTful APIs with Express.js
 
-Two things really got me sucked into Express when I first started using it: Jade and Stylus. I can barely tolerate writing HTML and CSS any other way.
+Two things really got me sucked into Express when I first started using it: [Jade](http://jade-lang.com/) and [Stylus](http://learnboost.github.io/stylus/). I can barely tolerate writing HTML and CSS any other way.
 
-These days I spend more time spend more time using Express for APIs that send nothing but JSON. In this post I'll cover a few libraries and reminders to help keep your code organized and your API friendly for developers.
+These days I spend more time using Express for APIs that send nothing but JSON. In this post I'll cover a few libraries and reminders to help keep your code organized and your API friendly for developers.
 
 ## Mongoose
 
@@ -13,17 +13,17 @@ I'm assuming an API backed by MongoDB, and that we're using [Mongoose](http://mo
 
 ### express-mongoose
 
-I'm generally not a flow control library guy. I guess I've just gotten used to callbacks. That said, it's worth condidering [express-mongoose](https://github.com/LearnBoost/express-mongoose) as a nice way of cleaning things up. It allows you to pass a Mongoose Query or Promise to `res.send` instead of writing out the full callback. That means a method that requires two separate Mongoose calls can be condensed to this:
+I'm generally not a flow control library guy. I guess I've just gotten used to callbacks. That said, it's worth considering [express-mongoose](https://github.com/LearnBoost/express-mongoose) as a nice way of cleaning things up. It allows you to pass a Mongoose Query or Promise object to `res.send` instead of writing out the full callback. That means a method that requires two separate Mongoose calls can be condensed to this:
 
         app.get('/pets', function(req, res) {
           res.send({cats: Cat.find(), dogs: Dog.find()});
         });
 
-The fact that it supports Promises is important to keep in mind, because it means you can create some fairly complex async stuff in your Mongoose models that return a Promise, and keep the top layer routing/sending code really tidy.
+The fact that it supports Promises is important to keep in mind, because it means you can create some fairly complex async stuff in your Mongoose models, and as long as it returns a Promise you keep the top layer routing/sending code really tidy.
 
 ### Mongoose Transforms
 
-I often find myself wanting to "hide" certain properties of objects before they get sent across the wire. Mongoose has a great mechanism for this via  `toObject` and `toJson` Transforms. Here's an example [from the docs](http://mongoosejs.com/docs/api.html#document_Document-toObject):
+I often find myself wanting to hide certain properties before they get sent across the wire. Mongoose has a great mechanism for doing this at the model level via  `toObject` and `toJson` Transforms. Here's an example [from the docs](http://mongoosejs.com/docs/api.html#document_Document-toObject):
 
         schema.options.toObject.transform = function (doc, ret, options) {
           return { movie: ret.name }
@@ -35,11 +35,13 @@ I often find myself wanting to "hide" certain properties of objects before they 
         // with the transformation
         doc.toObject(); // { movie: 'Wreck-it Ralph' }
 
+This is yet another way to avoid repetition at a higher level.
+
 ## Routing
 
 ### express-resource-new
 
-It can be tedious writing out the same GET, POST, PUT, DELETE actions for all of your resources, and tedious can turn to messy when you start including authentication and other middleware. TJ Holowaychuk, the creator of Express, also wrote a little library called [express-resource](https://github.com/visionmedia/express-resource) that simplifies some of that. However, I prefer [express-resource-new](https://github.com/tpeden/express-resource-new) which takes things a bit further by adding "before" middleware and nicer nested resource syntax, giving you a slightly more Rails-like controller setup. Note that the version on npm is not the latest, so you'll need to run this command to install via npm:
+It can be tedious writing out the same GET, POST, PUT, DELETE actions for all of your resources, and tedious can turn to messy when you start including authentication and other middleware. TJ Holowaychuk, the creator of Express, also wrote a little library called [express-resource](https://github.com/visionmedia/express-resource) that simplifies some of that. However, I prefer [express-resource-new](https://github.com/tpeden/express-resource-new). It provides a slightly more Rails-like controller setup by adding "before" middleware and nicer nested resource syntax. Note that the version on npm is not the latest, so you'll need to run this command to install via npm:
 
 `npm install git://github.com/tpeden/express-resource-new.git#175c2ad84cc6d3ac2b509d720b9ce583d7e8afb3`
 
@@ -85,9 +87,13 @@ If you've gone to the trouble of creating a great API, you're silly not to give 
 
 You should also check out [Swagger](https://github.com/wordnik/swagger-node-express), or if you prefer to have somebody else host your docs in their cloud, check out [Apiary](http://apiary.io) and [Mashape](https://www.mashape.com/).
 
+## Testing your API
+
+There's a [whole separate post](http://blog.strongloop.com/how-to-test-an-api-with-node-js/) dedicated to this one.
+
 ## Beyond Express
 
-Of course Express is not your only option. In a future post we'll be taking a look at [Hapi.js](http://hapijs.com/), which proudly carries the "configuration over convention" banner.
+Of course Express is not your only option nor even your best. In a future post we'll be taking a look at [Hapi.js](http://hapijs.com/), which proudly carries the "configuration over convention" banner.
 
 
 
