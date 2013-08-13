@@ -47,7 +47,7 @@ It can be tedious writing out the same GET, POST, PUT, DELETE actions for all of
 
 ### XHR-friendly
 
-If you're API is really strict, it would look only at the type of call being made; a POST is a POST, a DELETE is a DELETE. That poses a problem for some browsers and front-end libraries that only use GET and POST. A standard convention for solving that is to have your server look for a `_method` parameter on the incoming data, and use that value. If you've ever copied and pasted a basic Express example, you're probably already using this:
+If your API is really strict, it would look only at the type of call being made; a POST is a POST, a DELETE is a DELETE. That poses a problem for some browsers and front-end libraries that only use GET and POST. A standard convention for solving that is to have your server look for a `_method` parameter on the incoming data, and use that value. If you've ever copied and pasted a basic Express example, you're probably already using this:
 
 `app.use(express.methodOverride());`
 
@@ -83,7 +83,7 @@ Be sure that you're explicit about the format you're returning if you need to be
 
 ## Documenting your API
 
-If you've gone to the trouble of creating a great API, you're silly not to give it proper developer-friendly documentation. My personal favorite is [I/O Docs by Mashery](https://github.com/mashery/iodocs). You can document several APIs with one setup. Everything is configured with simple JSON config files. It's not yet compatible with Express 3, but I've created [a fork that is](https://github.com/jedwood/iodocs/tree/express3).
+If you've gone to the trouble of creating a great API, you're silly not to give it proper developer-friendly documentation. My personal favorite is [I/O Docs by Mashery](https://github.com/mashery/iodocs). You can document several APIs with one setup. Everything is configured with simple JSON config files. They recently upgraded it to be compatible with Express 3. I'd recommend hosting it as a separate app on a separate subdomain, but for simple non-critical apps you can just tuck it all under a route of the main app.
 
 You should also check out [Swagger](https://github.com/wordnik/swagger-node-express), or if you prefer to have somebody else host your docs in their cloud, check out [Apiary](http://apiary.io) and [Mashape](https://www.mashape.com/).
 
@@ -93,7 +93,6 @@ There's a [whole separate post](http://blog.strongloop.com/how-to-test-an-api-wi
 
 ## Beyond Express
 
-Of course Express is not your only option nor even your best. In a future post we'll be taking a look at [Hapi.js](http://hapijs.com/), which proudly carries the "configuration over convention" banner.
-
+Of course Express is not your only option for creating an API in Node, nor necessarily your best. In a future post we'll be taking a look at [Hapi.js](http://hapijs.com/), which proudly carries the "configuration over convention" banner.
 
 

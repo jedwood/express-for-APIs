@@ -1,0 +1,22 @@
+{
+  "name": "express-for-apis-sample",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express-resource-new": "git://github.com/tpeden/express-resource-new.git#175c2ad84cc6d3ac2b509d720b9ce583d7e8afb3",
+    "express-mongoose": "~0.1.0",
+    "express": "~3.3.5",
+    "mongoose": "~3.6.16"
+  },
+  "description": "",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "github.com/jedwood/express-for-APIs.git"
+  },
+  "author": "jedwood"
+}
